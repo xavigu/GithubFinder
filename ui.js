@@ -3,6 +3,7 @@ class UI {
         this.profile = document.getElementById('profile');
     }
 
+    //Display profile in UI
     showProfile(user){
         let createDate = new Date(user.created_at).toUTCString();
         this.profile.innerHTML=`
@@ -31,5 +32,38 @@ class UI {
           <div id="repos"></div>
         `
         console.log(user);
+    }
+
+    //Clear profile when input is empty
+    clearProfile(){
+        this.profile.innerHTML='';
+    }
+
+    //Show alert message when profile doesnt exist
+    showAlert(message, className){
+        //Clear previous alert message
+        this.clearAlert();
+        //Create div for the message
+        const div = document.createElement('div');
+        div.className = className;
+        div.appendChild(document.createTextNode(message));       
+        //Get parent
+        const container = document.querySelector('.searchContainer');
+        //Get search box
+        const search = document.querySelector('.search');
+        //Insert alert
+        container.insertBefore(div, search);  //el mensaje de alerta se inserta en el div de searchcontainer y se pondria antes del elemento con clase search
+        //Timeout cleaner
+        setTimeout(() => {
+            this.clearAlert();
+        }, 4000);
+    }
+
+    //Clear previous alert messages
+    clearAlert() {
+        const alert = document.querySelector('.alert');
+        if (alert) {
+            alert.remove();
+        }
     }
 }
